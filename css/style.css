@@ -1,0 +1,50 @@
+.container {
+    margin-top: 70px;
+}
+
+.row {
+   padding: 15px 0;
+}
+
+.shadow-lg-cat {
+    box-shadow: 0 0 20px rgb(0, 123, 255);
+}
+
+.shadow-lg-homka {
+    box-shadow: 0 0 20px rgb(40, 167, 69);
+}
+
+.shadow-lg-dragon {
+    box-shadow: 0 0 20px rgb(220, 53, 69);
+}
+
+a p.card-text {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.cat:hover p {
+    color: rgb(0, 123, 255) !important;
+}
+
+.homka:hover p {
+    color: rgb(40, 167, 69) !important;
+}
+
+.dragon:hover p {
+    color: rgb(220, 53, 69) !important;
+}
+
+footer div {
+    padding-right: 20px;
+}
+
+/*
+a.text-light:hover {
+    color: #007bff !important;
+}
+ */
