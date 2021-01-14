@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head> 
+	<title>Фотогалерея - Котейки</title>
+	<meta charset="utf-8" content="text/html">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="icon" href="favicon.png" sizes="any" type="image/png">
+</head>
+
+<body>
+<div class="bg"></div>
+<div id="menu">
+<a href="index.html">Котейки</a> | <a href="homka.html">Хомяки</a> | <a href="dragon.html" style="margin-right: 20px;">Дракоши</a>
+</div>
+<h1 class="title cat">Фотогалерея - Котейки</h1>
+	<div class="flex">
+		<!-- Удаляем href у тега а, но добавляем класс. Имя класса соответствует id lightbox`a-->
+		<a class="cat_01" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_01.jpg">
+					<h5>Первый котик</h5>	
+				</div>				
+			</div>
+		</a>
+		<!-- Аналогично для остальных картинок-->
+		<a class="cat_02" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_02.jpg">
+					<h5>Котенок</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_03" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_03.jpg">
+					<h5>Кися белая</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_04" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_04.jpg">
+					<h5>Вот тебе!</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_05" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_05.jpg">
+					<h5>Нет, это не я уронил твой цвяток!</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_06" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_06.jpg">
+					<h5>Мяяяяууууу!!!!</h5>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<!-- Удаляем href у тега а-->
+	<a class="lightbox" id="cat_01">
+		<img src="img/cat/cat_01.jpg">
+	</a>
+	<a class="lightbox" id="cat_02">
+		<img src="img/cat/cat_02.jpg">
+	</a>
+	<a class="lightbox" id="cat_03">
+		<img src="img/cat/cat_03.jpg">
+	</a>
+	<a class="lightbox" id="cat_04">
+		<img src="img/cat/cat_04.jpg">
+	</a>
+	<a class="lightbox" id="cat_05">
+		<img src="img/cat/cat_05.jpg">
+	</a>
+	<a class="lightbox" id="cat_06">
+		<img src="img/cat/cat_06.jpg">
+	</a>
+<details hidden> <!-- <details open> -->
+	<summary>Название</summary>
+	<p>Открываемый по требованию контент</p>
+</details>
+
+
+<!-- Подключаем jQuery и наш скрипт. Не забывает загрузить jquery-3.5.1.js на сервер!-->
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/tilt.jquery.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

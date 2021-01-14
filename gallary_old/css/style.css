@@ -1,0 +1,226 @@
+.flex {
+	display: flex;
+	width: 100%;
+	flex-flow: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(../fon.jpg);
+	opacity: 0.5;
+	z-index: -999;
+}
+
+h1, div {
+		/*width: 100%;*/
+		text-align: center;	
+	}
+
+	h1 {
+		color: white;
+		font-size: 48px;
+		margin-top: 70px;
+	}
+
+	h5 {
+		font-size: 24px;
+		color: white;
+	}
+
+	img {
+		width: 300px;
+		height: 300px;
+		padding-top: 10px;
+		border-radius: 150px;
+	}
+
+	.img_cat {
+		max-width: 320px;
+		min-width: 320px;
+		/*width: 33%;*/
+		/*float: left;*/
+		margin: 30px;
+	}
+
+	.img_cat:hover {
+		background: rgba(0,0,0,0.5);
+		cursor: pointer;
+	}
+
+	.img_cat:hover h5 {
+		color: rebeccapurple;
+	}
+
+	.bg_img {
+		max-width: 320px;
+		max-height: 420px;
+		margin: 0 auto;
+		background-color: rgba(120, 120, 120, 0.6);
+		border: 1px solid blue;
+		border-radius: 5px;
+		box-shadow: 5px 5px 10px rgba(0, 0, 255, 0.5), -5px -5px 10px rgba(255, 0, 100, 0.5);
+	}
+
+	#menu {
+		position: fixed;
+		top: 0;
+		left: 0;
+		text-align: right;
+		background-color: blue;
+		color: #FFF;
+		font-size: 40px;
+		padding: 10px;
+		opacity: 80%;
+		width: 100%;
+	}
+
+	a {
+		color: #FFF;
+		text-decoration-line: none;
+	}
+
+	a:hover {
+		color: red;
+	}
+
+	.lightbox {
+		position: fixed;
+		z-index: 9999;
+		width: 0;
+		height: 0;
+		text-align: center;
+		top: 0;
+		left: 0;
+		background: rgba(0,0,0,0.8);
+		overflow: hidden;
+	}
+
+	.lightbox img {
+		width: 35%;
+		border-radius: 0;
+		height: auto;
+		margin: auto;
+		opacity: 0;
+		transition: opacity 500ms ease-in;
+	}
+
+	.title {
+		font-family: 'Titan One', cursive;
+	}
+
+	.title.cat:hover span{
+		cursor: none;
+		color: rebeccapurple;
+		position: relative;
+		top: 19px;
+		display: inline-block;
+		-webkit-animation: bounce .3s ease infinite alternate;
+		animation: bounce .3s ease infinite alternate;
+	}
+
+	.title span.space {
+		display: inline-block;
+		width: 14px;
+	}
+
+	.title.cat span:nth-child(2) { -webkit-animation-delay: .1s; animation-delay: .1s; }
+	.title.cat span:nth-child(3) { -webkit-animation-delay: .2s; animation-delay: .2s; }
+	.title.cat span:nth-child(4) { -webkit-animation-delay: .3s; animation-delay: .3s; }
+	.title.cat span:nth-child(5) { -webkit-animation-delay: .4s; animation-delay: .4s; }
+	.title.cat span:nth-child(6) { -webkit-animation-delay: .5s; animation-delay: .5s; }
+	.title.cat span:nth-child(7) { -webkit-animation-delay: .6s; animation-delay: .6s; }
+	.title.cat span:nth-child(8) { -webkit-animation-delay: .7s; animation-delay: .7s; }
+	.title.cat span:nth-child(9) { -webkit-animation-delay: .8s; animation-delay: .8s; }
+	.title.cat span:nth-child(10) { -webkit-animation-delay: .9s; animation-delay: .9s; }
+	.title.cat span:nth-child(11) { -webkit-animation-delay: 1s; animation-delay: 1s; }
+	.title.cat span:nth-child(12) { -webkit-animation-delay: 1.1s; animation-delay: 1.1s; }
+	.title.cat span:nth-child(13) { -webkit-animation-delay: 1.2s; animation-delay: 1.2s; }
+	.title.cat span:nth-child(14) { -webkit-animation-delay: 1.3s; animation-delay: 1.3s; }
+	.title.cat span:nth-child(15) { -webkit-animation-delay: 1.4s; animation-delay: 1.4s; }
+	.title.cat span:nth-child(16) { -webkit-animation-delay: 1.5s; animation-delay: 1.5s; }
+	.title.cat span:nth-child(17) { -webkit-animation-delay: 1.6s; animation-delay: 1.6s; }
+	.title.cat span:nth-child(18) { -webkit-animation-delay: 1.7s; animation-delay: 1.7s; }
+	.title.cat span:nth-child(19) { -webkit-animation-delay: 1.8s; animation-delay: 1.8s; }
+	.title.cat span:nth-child(20) { -webkit-animation-delay: 1.9s; animation-delay: 1.9s; }
+	.title.cat span:nth-child(21) { -webkit-animation-delay: 2.0s; animation-delay: 2.0s; }
+	.title.cat span:nth-child(22) { -webkit-animation-delay: 2.1s; animation-delay: 2.1s; }
+
+
+
+	@-webkit-keyframes bounce {
+		100% {
+			top: -20px;
+			text-shadow: 0 1px 0 #bfbebe,
+			0 2px 0 #bfbebe,
+			0 3px 0 #bfbebe,
+			0 4px 0 #bfbebe,
+			0 5px 0 #bfbebe;
+		}
+	}
+
+	.title.homka:hover span{
+		cursor: none;
+		color: rebeccapurple;
+		position: relative;
+		display: inline-block;
+		-webkit-animation: pulsate 3s ease-out;
+		-webkit-animation-iteration-count: infinite;
+		opacity: 0.5;
+	}
+
+	@-webkit-keyframes pulsate {
+		0% {
+			opacity: 0.5;
+			color: blue;
+		}
+		50% {
+			opacity: 1.0;
+			color: red;
+		}
+		100% {
+			opacity: 0.5;
+			color: blue;
+		}
+	}
+
+.title.homka span:nth-child(2) { -webkit-animation-delay: .1s; animation-delay: .1s; }
+.title.homka span:nth-child(3) { -webkit-animation-delay: .2s; animation-delay: .2s; }
+.title.homka span:nth-child(4) { -webkit-animation-delay: .3s; animation-delay: .3s; }
+.title.homka span:nth-child(5) { -webkit-animation-delay: .4s; animation-delay: .4s; }
+.title.homka span:nth-child(6) { -webkit-animation-delay: .5s; animation-delay: .5s; }
+.title.homka span:nth-child(7) { -webkit-animation-delay: .6s; animation-delay: .6s; }
+.title.homka span:nth-child(8) { -webkit-animation-delay: .7s; animation-delay: .7s; }
+.title.homka span:nth-child(9) { -webkit-animation-delay: .8s; animation-delay: .8s; }
+.title.homka span:nth-child(10) { -webkit-animation-delay: .9s; animation-delay: .9s; }
+.title.homka span:nth-child(11) { -webkit-animation-delay: 1s; animation-delay: 1s; }
+.title.homka span:nth-child(12) { -webkit-animation-delay: 1.1s; animation-delay: 1.1s; }
+.title.homka span:nth-child(13) { -webkit-animation-delay: 1.2s; animation-delay: 1.2s; }
+.title.homka span:nth-child(14) { -webkit-animation-delay: 1.3s; animation-delay: 1.3s; }
+.title.homka span:nth-child(15) { -webkit-animation-delay: 1.4s; animation-delay: 1.4s; }
+.title.homka span:nth-child(16) { -webkit-animation-delay: 1.5s; animation-delay: 1.5s; }
+.title.homka span:nth-child(17) { -webkit-animation-delay: 1.6s; animation-delay: 1.6s; }
+.title.homka span:nth-child(18) { -webkit-animation-delay: 1.7s; animation-delay: 1.7s; }
+.title.homka span:nth-child(19) { -webkit-animation-delay: 1.8s; animation-delay: 1.8s; }
+.title.homka span:nth-child(20) { -webkit-animation-delay: 1.9s; animation-delay: 1.9s; }
+.title.homka span:nth-child(21) { -webkit-animation-delay: 2.0s; animation-delay: 2.0s; }
+
+/*
+:target нам больше не нужен! Обработка нажатий идет в script.js
+
+.lightbox:target {
+    width: auto;
+    height: auto;
+    bottom: 0;
+    right: 0;
+}
+
+.lightbox:target img {
+    opacity: 1;
+}
+ */
