@@ -1,19 +1,29 @@
 <?php
 include "db_connect.php";
+//Старт сессии
+session_start();
 
 if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['age'])) {
     if (($_POST['login'] != '') && ($_POST['age'] > 14) && ($_POST['age'] < 151) && (preg_match("(\w+@[a-z_]+?\.[a-z]{2,6})", strtolower($_POST['email'])) == 1) &&
         (preg_match("((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,})", $_POST['password']) == 1)) {
-        $data = $DBH->prepare("SELECT COUNT(`key`) AS c FROM `user` WHERE `login`='".$_POST["login"]."' OR `email`='".$_POST["email"]."'");
-        $data->execute();
+        $login = $_POST["login"];
+        $email = strtolower($_POST['email']);
+        $data = $DBH->prepare("SELECT COUNT(`key`) FROM `user` WHERE (`login` LIKE ?) OR (`email` LIKE ?)");
+        $data->execute([$login, $email]);
         $c = $data->fetchColumn();
         if ($c == 0) {
-            $login = $_POST['login'];
             $pass = password_hash($_POST['password'],  PASSWORD_BCRYPT);
-            $email = strtolower($_POST['email']);
             $age = $_POST['age'];
-            $data = $DBH->prepare("INSERT INTO `user` (`key`, `login`, `password`, `emal`, `age`) VALUES (NULL, ?, ?, ?, ?);");
+            $data = $DBH->prepare("INSERT INTO `user` (`key`, `login`, `password`, `email`, `age`) VALUES (NULL, ?, ?, ?, ?);");
             $data->execute([$login, $pass, $email, $age]);
+
+            //Получаем id user нового пользователя
+            $data = $DBH->prepare("SELECT `key` FROM `user` WHERE `login`= ? AND `email`= ?");
+            $data->execute([$login, $email]);
+            $c = $data->fetchColumn();
+            //echo "<script>alert(".$c.");</script>";
+            //Записываем в супперглобальную переменную $_SESSION id пользователя
+            $_SESSION['user_id'] = $c;
         }
     }
 }
@@ -201,11 +211,17 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
 </div>
 <!-- footer -->
 <footer>
-    <div class="text-center fixed-bottom text-light"><h5>&copy; Евгений Ушаков</h5></div>
+    <div class="text-center fixed-bottom text-light"><h5>&copy; Евгений Ушаков</h5>
+        <?php
+        //Тестовый вывод id пользователя 
+        if (isset($_SESSION['user_id'])) {
+        echo "user_id: ".$_SESSION['user_id'];
+        } ?>
+        </div>
 </footer>
 <!-- Navigation-->
 <nav class="navbar navbar-dark fixed-top"> <!--bg-primary-->
-    <a class="navbar-brand" href="index.html">
+    <a class="navbar-brand" href="gallary_old/index.html">
         <i class="fas fa-images"></i> Фотогалерея
     </a>
 </nav>
