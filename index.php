@@ -1,5 +1,15 @@
 <?php
 include "db_connect.php";
+session_start();
+$is_login = false;
+if (isset($_SESSION['user_id'])) {
+    $is_login = true;
+}
+
+if (isset($_GET['logout'])) {
+    session_unset();
+    header("location: http://cmit-asino.ml/index.php");
+}
 
 try {
 $category = "";
@@ -212,7 +222,7 @@ $category = "";
 
 <!-- Navigation-->
 <nav class="navbar navbar-dark fixed-top bg-primary"> <!--bg-primary-->
-    <a class="navbar-brand" href="index.html">
+    <a class="navbar-brand" href="gallary_old/index.html">
         <i class="fas fa-images"></i> Фотогалерея
     </a>
     <div class="flex-row d-flex">
@@ -220,7 +230,22 @@ $category = "";
         <a class="nav-item nav-link text-light" href="index.php?category=homka">Хомяки</a>
         <a class="nav-item nav-link text-light" href="index.php?category=dragons">Дракоши</a>
         <!--<a class="nav-item nav-link text-light" href="#" data-toggle="modal" data-target="#setting"><i class="fas fa-cogs"></i></a> -->
-        <a class="nav-item nav-link text-light" href="#" data-toggle="modal" data-target="#login"><i class="fas fa-sign-in-alt"></i></a>
+        <?php
+            if ($is_login) {
+                echo '<div class="btn-group">';
+                echo '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                echo '<i class="fas fa-user"></i>';
+                echo '</button>';
+                echo '<div class="dropdown-menu dropdown-menu-right">';
+                echo '<a class="dropdown-item" href="#" data-toggle="modal" data-target="#setting"><i class="fas fa-cogs"></i> Настройки</a>';
+                echo '<a class="dropdown-item" href="?logout"><i class="fas fa-sign-out-alt"></i> Выход</a>';
+                echo '</div>';
+                echo '</div>';
+            } else {
+                echo '<a class="nav-item nav-link text-light" href="#" data-toggle="modal" data-target="#login"><i class="fas fa-sign-in-alt"></i></a>';
+            }
+        ?>
+
 
 
     </div>

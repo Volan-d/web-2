@@ -1,7 +1,9 @@
 <?php
 include "db_connect.php";
-//Старт сессии
 session_start();
+
+$error = false;
+$msg = '';
 
 if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']) && isset($_POST['age'])) {
     if (($_POST['login'] != '') && ($_POST['age'] > 14) && ($_POST['age'] < 151) && (preg_match("(\w+@[a-z_]+?\.[a-z]{2,6})", strtolower($_POST['email'])) == 1) &&
@@ -15,17 +17,33 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
             $pass = password_hash($_POST['password'],  PASSWORD_BCRYPT);
             $age = $_POST['age'];
             $data = $DBH->prepare("INSERT INTO `user` (`key`, `login`, `password`, `email`, `age`) VALUES (NULL, ?, ?, ?, ?);");
-            $data->execute([$login, $pass, $email, $age]);
-
-            //Получаем id user нового пользователя
-            $data = $DBH->prepare("SELECT `key` FROM `user` WHERE `login`= ? AND `email`= ?");
-            $data->execute([$login, $email]);
-            $c = $data->fetchColumn();
-            //echo "<script>alert(".$c.");</script>";
-            //Записываем в супперглобальную переменную $_SESSION id пользователя
-            $_SESSION['user_id'] = $c;
+            if ($data->execute([$login, $pass, $email, $age])) {
+                //id user
+                $data = $DBH->prepare("SELECT `key` FROM `user` WHERE `login`= ? AND `email`= ?");
+                if ($data->execute([$login, $email])) {
+                    $c = $data->fetchColumn();
+                    //echo "<script>alert(".$c.");</script>";
+                    $_SESSION['user_id'] = $c;
+                    header("refresh: 5; url=http://cmit-asino.ml/index.php");
+                } else {
+                    $error = true;
+                    $msg = 'Не удалось получить  id пользователя';
+                }
+            } else {
+                $error = true;
+                $msg = 'Не удалось добавить пользователя';
+            }
+        } else {
+            $error = true;
+            $msg = 'Пользователь с таким логином и/или почтой уже существует';
         }
+    } else {
+        $error = true;
+        $msg = 'Введены некоректные данные или возраст не соответствует требованиям';
     }
+} else {
+    $error = true;
+    $msg = 'Отсутствует логин, пароль, почта или не указан возраст.';
 }
 
 ?>
@@ -176,6 +194,17 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
     <h2 class="text-center text-light">
         Регистрация нового пользователя
     </h2>
+    <?php
+    if ($error) {
+        echo '<div class="alert alert-danger" role="alert">';
+        echo $msg;
+        echo '</div>';
+    } else {
+        echo '<div class="alert alert-success" role="alert">';
+        echo "Регистрация успешна. Через 5 секунд Вы будете перенаправлены на главную страницу.";
+        echo '</div>';
+    }
+    ?>
     <div class="row row-cols-1 text-light justify-content-center">
         <div class="col-4">
             <form action="registration.php" method="post">
@@ -212,9 +241,7 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
 <!-- footer -->
 <footer>
     <div class="text-center fixed-bottom text-light"><h5>&copy; Евгений Ушаков</h5>
-        <?php
-        //Тестовый вывод id пользователя 
-        if (isset($_SESSION['user_id'])) {
+        <?php if (isset($_SESSION['user_id'])) {
         echo "user_id: ".$_SESSION['user_id'];
         } ?>
         </div>
