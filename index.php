@@ -6,6 +6,11 @@ if (isset($_SESSION['user_id'])) {
     $is_login = true;
 }
 
+if (isset($_SESSION['msg_error'])) {
+    $msg_error = $_SESSION['msg_error'];
+    unset($_SESSION['msg_error']);
+}
+
 if (isset($_GET['logout'])) {
     session_unset();
     header("location: http://cmit-asino.ml/index.php");
@@ -52,6 +57,7 @@ $category = "";
 <!-- Body-->
 <!-- Шарики-->
 <!-- новогодняя мотня newyear.html -->
+<!--
 <div class="fixed-top b-page_newyear bg-primary">
     <div class="b-page__content">
         <i class="b-head-decor">
@@ -177,6 +183,7 @@ $category = "";
         </i>
     </div>
 </div>
+-->
 <!-- Шарики кончились-->
 <div class="container">
     <h1 class="text-center text-light">
@@ -281,7 +288,7 @@ $category = "";
 
 <!-- Modal Login -->
 <div class="modal fade" id="login" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Авторизация пользователя</h5>
@@ -290,14 +297,21 @@ $category = "";
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <?php
+                if (isset($msg_error)) {
+                  echo '<span class="text-danger error">';
+                  echo $msg_error;
+                  echo '</span>';
+                }
+                ?>
+                <form action="login.php" method="post">
                     <div class="form-group">
                         <label for="InputLogin">Login<sup class="text-danger">*</sup></label>
-                        <input type="text" class="form-control" id="InputLogin">
+                        <input type="text" class="form-control" id="InputLogin" required name="login">
                     </div>
                     <div class="form-group">
                         <label for="InputPassword">Password<sup class="text-danger">*</sup></label>
-                        <input type="password" class="form-control" id="InputPassword">
+                        <input type="password" class="form-control" id="InputPassword" required name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Войти</button> или <a href="registration.php">Зарегистрироваться</a>
                 </form>

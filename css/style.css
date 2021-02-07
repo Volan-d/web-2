@@ -1,5 +1,5 @@
 .container {
-    margin-top: 170px;
+    margin-top: 70px;
 }
 
 .row {
@@ -137,9 +137,11 @@ body{
     z-index: 9999 !important;
 }
 
+/*
 .navbar.fixed-top {
     top: 90px !important;
 }
+ */
 /*
 a.text-light:hover {
     color: #007bff !important;
