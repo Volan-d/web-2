@@ -7,6 +7,7 @@ $(function() {
     function show_login() {
         $("#login").modal("show");
     }
+
     if ($('.error').length == 1) {
         show_login();
     }
