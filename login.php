@@ -12,7 +12,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $c = $data->rowCount();
         if ($c != 0) {
             $id = $result[0]['id'];
-            $password = $id = $result[0]['password'];
+            $password = $result[0]['password'];
             if (password_verify($input_password, $password)) {
                 $_SESSION['user_id'] = $id;
             } else {

@@ -55,6 +55,14 @@ body{
     background-position: center top;
 }
 
+.card-deck {
+    margin-bottom: 20px;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
 .b-page__content{min-height:100px}
 .b-head-decor{display:none}
 .b-page_newyear .b-head-decor{
