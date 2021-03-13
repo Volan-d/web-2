@@ -3,6 +3,9 @@ include "db_connect.php";
 session_start();
 $id_user = 0;
 $is_login = false;
+
+$name_category = "";
+
 if (isset($_SESSION['user_id'])) {
     $is_login = true;
     $id_user = $_SESSION['user_id'];
@@ -27,6 +30,7 @@ $category = "";
         while ($row = $data->fetch()) {
             $category = $row['key'];
         }
+        $name_category = "category=".$_GET["category"];
     } else {
         $category = "1";
     }
@@ -48,9 +52,37 @@ if (isset($_GET["u"]) && isset($_GET["i"]) && (isset($_GET["l"]) || isset($_GET[
     if ($c == 0) {
         $data = $DBH->prepare("INSERT INTO `like` (`key`, `id_user`, `id_photo`, `l`) VALUES (NULL, ?, ?, ?)");
         $data->execute([$id_user, $id_photo, $l]);
+    } else {
+        $l_db = $result[0]["l"];
+        if ($l==$l_db) {
+            //Удаление
+            $data = $DBH->prepare("DELETE FROM `like` WHERE (`id_user` = ?) AND (`id_photo` = ?)");
+            $data->execute([$id_user, $id_photo]);
+        } else {
+            //Смена
+            $data = $DBH->prepare("UPDATE `like` SET `l`=? WHERE (`id_user` = ?) AND (`id_photo` = ?)");
+            $data->execute([$l, $id_user, $id_photo]);
+        }
     }
-    header("location: http://cmit-asino.ml/index.php#f".$id_photo);
+    if (isset($_GET["category"])) {
+        header("location: http://cmit-asino.ml/index.php?".$name_category."#f".$id_photo);
+    } else {
+        header("location: http://cmit-asino.ml/index.php#f".$id_photo);
+    }
 }
+
+if (isset($_POST["check-theme"])) {
+    $data = $DBH->prepare("SELECT COUNT(`theme`) AS `c` FROM `colors` WHERE (`id_user` = ?) AND (`id_page` = ?)");
+    $data->execute([$id_user, $category]);
+    $result = $data->fetchAll();
+    $c = $result[0]["c"];
+    if ($c == 0) {
+        //insert
+    } else {
+        //update
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -258,14 +290,24 @@ if (isset($_GET["u"]) && isset($_GET["i"]) && (isset($_GET["l"]) || isset($_GET[
 
             //demo like
             if ($is_login) {
-                echo '<a class="text-primary like" href="?u='.$id_user.'&i='.$row['key'].'&l">';
+                echo '<a class="text-primary like" href="?u='.$id_user.'&i='.$row['key'].'&l&'.$name_category.'".>';
 				echo $icon_l;
 				echo '	</a>';
             }
-            echo ' 111 ';
+
+            $sum_likes = $DBH->prepare("SELECT SUM(l) AS `sum_likes` FROM `like` WHERE `id_photo` = ?");
+            $sum_likes->execute([$row['key']]);
+            $sum_like = $sum_likes->fetchAll();
+
+            if (isset($sum_like[0]["sum_likes"])) {
+                echo " ".$sum_like[0]["sum_likes"]." ";
+            } else {
+                echo " 0 ";
+            }
+
             //demo dislike
             if ($is_login) {
-                echo '<a class="text-danger dislike" href="?u='.$id_user.'&i='.$row['key'].'&d">';
+                echo '<a class="text-danger dislike" href="?u='.$id_user.'&i='.$row['key'].'&d&'.$name_category.'".>';
 				echo $icon_d;
 				echo '	</a>';
             }
@@ -322,26 +364,29 @@ if (isset($_GET["u"]) && isset($_GET["i"]) && (isset($_GET["l"]) || isset($_GET[
 <div class="modal fade" id="setting" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Заголовок</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Укажите цвет элемента: <input type="color" name="bg" value="#ff0000" id="changeItemColor">
-                </p>
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="check-theme">
-                    <label class="custom-control-label" for="check-theme">Темная тема</label>
+            <form action="index.php" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Заголовок</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <footer>
-                    Тут подпись
-                </footer>
-            </div>
+                <div class="modal-body">
+                    <p>
+                        Укажите цвет элемента: <input type="color" name="bg" value="#ff0000" id="changeItemColor">
+                    </p>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="check-theme">
+                        <label class="custom-control-label" for="check-theme">Темная тема</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <footer>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </footer>
+                </div>
+            </form>
         </div>
     </div>
 </div>
