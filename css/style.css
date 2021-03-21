@@ -63,6 +63,22 @@ body{
     padding: 0 !important;
 }
 
+.box-img {
+    position: relative;
+}
+
+.check-public {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+
+.check-public input {
+    width: 25px;
+    height: 25px;
+}
+
 .b-page__content{min-height:100px}
 .b-head-decor{display:none}
 .b-page_newyear .b-head-decor{

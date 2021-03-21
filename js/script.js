@@ -91,6 +91,10 @@ $(function() {
                 localStorage.setItem('themes-homka', 'light');
             }
         }
+    });
+
+    $('[type="checkbox"]').click(function () {
+        alert($(this).prop("id"));
     })
 })
 
