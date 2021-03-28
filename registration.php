@@ -16,8 +16,8 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
         if ($c == 0) {
             $pass = password_hash($_POST['password'],  PASSWORD_BCRYPT);
             $age = $_POST['age'];
-            $data = $DBH->prepare("INSERT INTO `user` (`key`, `login`, `password`, `email`, `age`) VALUES (NULL, ?, ?, ?, ?);");
-            if ($data->execute([$login, $pass, $email, $age])) {
+            $data = $DBH->prepare("INSERT INTO `user` (`key`, `login`, `password`, `email`, `age`, `role`) VALUES (NULL, ?, ?, ?, ?, ?);");
+            if ($data->execute([$login, $pass, $email, $age, "user"])) {
                 //id user
                 $data = $DBH->prepare("SELECT `key` FROM `user` WHERE `login`= ? AND `email`= ?");
                 if ($data->execute([$login, $email])) {
@@ -248,7 +248,7 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
 </footer>
 <!-- Navigation-->
 <nav class="navbar navbar-dark fixed-top"> <!--bg-primary-->
-    <a class="navbar-brand" href="gallary_old/index.html">
+    <a class="navbar-brand" href="index.php">
         <i class="fas fa-images"></i> Фотогалерея
     </a>
 </nav>

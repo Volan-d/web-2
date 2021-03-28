@@ -3,12 +3,17 @@ include "db_connect.php";
 session_start();
 $id_user = 0;
 $is_login = false;
+$role = "user";
 
 $name_category = "";
 
 if (isset($_SESSION['user_id'])) {
     $is_login = true;
     $id_user = $_SESSION['user_id'];
+    $data = $DBH->prepare("SELECT `role` FROM `user` WHERE `key` = ?");
+    $data->execute([$id_user]);
+    $result = $data->fetchAll();
+    $role = $result[0]["role"];
 }
 
 if (isset($_SESSION['msg_error'])) {
@@ -81,6 +86,10 @@ if (isset($_POST["check-theme"])) {
     } else {
         //update
     }
+}
+
+if (isset($_POST["id_photo"]) && isset($_POST["status"])) {
+    var_dump($_POST);
 }
 
 ?>
@@ -253,8 +262,15 @@ if (isset($_POST["check-theme"])) {
     <!-- <div class="row row-cols-3"> -->
 <?php
     try {
-        $data = $DBH->query("SELECT `key`, `name`, `disc` FROM photos WHERE id_cat_name=".$category);
-        $data->setFetchMode(PDO::FETCH_ASSOC);
+        $data = "";
+        if ($role == "admin") {
+            $data = $DBH->query("SELECT `key`, `name`, `disc` FROM photos WHERE id_cat_name=".$category);
+            $data->setFetchMode(PDO::FETCH_ASSOC);
+        } elseif ($role == "user") {
+            $data = $DBH->query("SELECT `key`, `name`, `disc` FROM photos WHERE (id_cat_name=".$category.") AND (`public`=1)");
+            $data->setFetchMode(PDO::FETCH_ASSOC);
+        }
+
         $i = 1;
         while ($row = $data->fetch()) {
             if (($i % 3) == 1) {
@@ -281,10 +297,21 @@ if (isset($_POST["check-theme"])) {
             //echo '<div class="col mb-4">';
             echo '<div class="card border-primary text-center h-100 shadow-lg-cat bg-white rounded" id="f'.$row['key'].'">';
             echo '<div class="card-body">';
+            if ($role == "admin") {
+                echo '<div class="box-img">';
+                echo '<div class="check-public">';
+                echo '<form action="/" name="f'.$row['key'].'">';
+                echo '<input type="checkbox" id="c'.$row['key'].'" name="n'.$row['key'].'">';
+                echo '</form>';
+                echo '</div>';
+            }
             echo '<a href="img/'.$row['name'].'" data-toggle="lightbox" data-title="Котейки" data-footer="'.$row['disc'].'">';
             echo '<img src="img/'.$row['name'].'" class="card-img-top" alt="...">';
             echo '<p class="card-text">'.$row['disc'].'</p>';
             echo '</a>';
+            if ($role == "admin") {
+                echo '</div>';
+            }
             echo '</div>';
             echo '<div class="card-footer">';
 
@@ -293,6 +320,8 @@ if (isset($_POST["check-theme"])) {
                 echo '<a class="text-primary like" href="?u='.$id_user.'&i='.$row['key'].'&l&'.$name_category.'".>';
 				echo $icon_l;
 				echo '	</a>';
+            } else {
+                echo '<i class="far fa-thumbs-up text-primary "></i>';
             }
 
             $sum_likes = $DBH->prepare("SELECT SUM(l) AS `sum_likes` FROM `like` WHERE `id_photo` = ?");
@@ -310,6 +339,8 @@ if (isset($_POST["check-theme"])) {
                 echo '<a class="text-danger dislike" href="?u='.$id_user.'&i='.$row['key'].'&d&'.$name_category.'".>';
 				echo $icon_d;
 				echo '	</a>';
+            } else {
+                echo '<i class="far fa-thumbs-down text-danger disabled"></i>';
             }
             echo '</div>';
             echo '</div>';
@@ -320,6 +351,10 @@ if (isset($_POST["check-theme"])) {
             }
             $i++;
         }
+        if (($i % 3) != 1) {
+            echo '</div>';
+        }
+
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
@@ -334,7 +369,7 @@ if (isset($_POST["check-theme"])) {
 
 <!-- Navigation-->
 <nav class="navbar navbar-dark fixed-top bg-primary"> <!--bg-primary-->
-    <a class="navbar-brand" href="gallary_old/index.html">
+    <a class="navbar-brand" href="index.php">
         <i class="fas fa-images"></i> Фотогалерея
     </a>
     <div class="flex-row d-flex">
