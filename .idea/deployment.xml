@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="PublishConfigData" autoUpload="Always" serverName="http://cmit-asino.ml/">
     <serverData>
       <paths name="http://cmit-asino.ml/">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+=======
+  <component name="PublishConfigData" autoUpload="Always" serverName="cmit-asino.ml">
+    <serverData>
+      <paths name="cmit-asino.ml">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/domains/cmit-asino.ml/public_html" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="f0491557.xsph.ru">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+>>>>>>> 525385ef36c4bd9a844ba341d6a49d91b7fc130e
           </mappings>
         </serverdata>
       </paths>

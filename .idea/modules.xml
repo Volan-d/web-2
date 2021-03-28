@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/bootstrap_gallary.iml" filepath="$PROJECT_DIR$/.idea/bootstrap_gallary.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/gallary.iml" filepath="$PROJECT_DIR$/.idea/gallary.iml" />
+>>>>>>> 525385ef36c4bd9a844ba341d6a49d91b7fc130e
     </modules>
   </component>
 </project>
