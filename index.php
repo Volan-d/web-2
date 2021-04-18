@@ -7,6 +7,34 @@ $role = "user";
 
 $name_category = "";
 
+var_dump($_FILES);
+
+if (isset($_POST['selectFile']) && isset($_POST['textImg']) && isset($_POST['categoryImg'])) {
+    var_dump($_FILES);
+
+    /*$full_new_name_img = $_SERVER["DOCUMENT_ROOT"];
+
+    $data = $DBH->prepare("SELECT `name` FROM `photos` WHERE `id_cat_name` = ? LIMIT 1");
+    $data->execute([$_POST['categoryImg']]);
+    $result = $data->fetchAll();
+    $full_new_name_img = $full_new_name_img."/".pathinfo($result[0]['name'])['dirname'];
+
+    $data = $DBH->prepare("SELECT COUNT(`key`) AS `c` FROM `photos` WHERE `id_cat_name` = ?");
+    $data->execute([$_POST['categoryImg']]);
+    $result = $data->fetchAll();
+    if ($result[0]["c"] > 9) {
+        $new_name_img =  ($result[0]["c"] + 1).".".pathinfo($_POST['selectFile'])["extension"];
+    } else {
+        $new_name_img =  "0".($result[0]["c"] + 1).".".pathinfo($_POST['selectFile'])["extension"];
+    }
+
+    $full_new_name_img = $full_new_name_img."/".$new_name_img;
+
+    echo $full_new_name_img;
+
+    var_dump($_FILES);*/
+}
+
 if (isset($_SESSION['user_id'])) {
     $is_login = true;
     $id_user = $_SESSION['user_id'];
@@ -89,7 +117,14 @@ if (isset($_POST["check-theme"])) {
 }
 
 if (isset($_POST["id_photo"]) && isset($_POST["status"])) {
-    var_dump($_POST);
+    $status_img = 0;
+    if ($_POST["status"] == 'true') {
+        $status_img = 1;
+    }
+    $data = $DBH->prepare("UPDATE `photos` SET `public`=? WHERE `key` = ?");
+    $data->execute([$status_img, $_POST["id_photo"]]);
+
+    //var_dump($_POST);
 }
 
 ?>
@@ -264,7 +299,7 @@ if (isset($_POST["id_photo"]) && isset($_POST["status"])) {
     try {
         $data = "";
         if ($role == "admin") {
-            $data = $DBH->query("SELECT `key`, `name`, `disc` FROM photos WHERE id_cat_name=".$category);
+            $data = $DBH->query("SELECT `key`, `name`, `disc`, `public` FROM photos WHERE id_cat_name=".$category);
             $data->setFetchMode(PDO::FETCH_ASSOC);
         } elseif ($role == "user") {
             $data = $DBH->query("SELECT `key`, `name`, `disc` FROM photos WHERE (id_cat_name=".$category.") AND (`public`=1)");
@@ -301,7 +336,11 @@ if (isset($_POST["id_photo"]) && isset($_POST["status"])) {
                 echo '<div class="box-img">';
                 echo '<div class="check-public">';
                 echo '<form action="/" name="f'.$row['key'].'">';
-                echo '<input type="checkbox" id="c'.$row['key'].'" name="n'.$row['key'].'">';
+                echo '<input type="checkbox" id="c'.$row['key'].'" name="n'.$row['key'].'"';
+                if ($row['public'] == 1) {
+                    echo ' checked';
+                }
+                echo '>';
                 echo '</form>';
                 echo '</div>';
             }
@@ -384,6 +423,7 @@ if (isset($_POST["id_photo"]) && isset($_POST["status"])) {
                 echo '<i class="fas fa-user"></i>';
                 echo '</button>';
                 echo '<div class="dropdown-menu dropdown-menu-right">';
+                echo '<a class="dropdown-item" href="#" data-toggle="modal" data-target="#upload_img"><i class="fas fa-cloud-upload-alt"></i> Загрузить картинку</a>';
                 echo '<a class="dropdown-item" href="#" data-toggle="modal" data-target="#setting"><i class="fas fa-cogs"></i> Настройки</a>';
                 echo '<a class="dropdown-item" href="?logout"><i class="fas fa-sign-out-alt"></i> Выход</a>';
                 echo '</div>';
@@ -460,6 +500,49 @@ if (isset($_POST["id_photo"]) && isset($_POST["status"])) {
     </div>
 </div>
 
+<!-- Upload image -->
+<div class="modal fade" id="upload_img" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Загрузить новую картинку</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php
+                if (isset($upload_error)) {
+                    echo '<span class="text-danger error">';
+                    echo $upload_error;
+                    echo '</span>';
+                }
+                ?>
+                <form action="index.php" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="selectFile">Выбор файла<sup class="text-danger">*</sup></label>
+                        <input type="file" class="form-control" id="selectFile" required name="selectFile" accept=".jpg,.jpeg,.png">
+                    </div>
+                    <div class="form-group">
+                        <label for="textImg">Описание<sup class="text-danger">*</sup></label>
+                        <input type="text" class="form-control" id="textImg" required name="textImg">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select" aria-label="Категория изображения" id="categoryImg" name="categoryImg">
+                            <option selected>Выбирете категорию...</option>
+                            <option value="1">Котейки</option>
+                            <option value="3">Хомяки</option>
+                            <option value="5">Дракоши</option>
+                        </select>
+                        <input type="hidden" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="upload_file">Загрузить</button>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close">Отмена</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="js/jquery-3.5.1.js"></script>
 <script src="js/bootstrap.min.js"></script>

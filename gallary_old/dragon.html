@@ -1,106 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" integrity="sha512-Velp0ebMKjcd9RiCoaHhLXkR1sFoCCWXNp6w4zj1hfMifYB5441C+sKeBl/T/Ka6NjBiRfBBQRaQq65ekYz3UQ==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Динозаврики</title>
+<html>
+<head> 
+	<title>Фотогалерея - Дракоши</title>
+	<meta charset="utf-8"; content="text/html">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="icon" href="favicon.dragon.png" sizes="any" type="image/png">
 </head>
-<body class="bg-dark">
-<!-- Navigation-->
-<nav class="navbar navbar-dark bg-danger fixed-top">
-    <a class="navbar-brand" href="#">
-        <i class="fas fa-images"></i> Фотогалерея
-    </a>
-    <div class="flex-row d-flex">
-        <a class="nav-link text-light" href="index.html">Котейки</a>
-        <a class="nav-link text-light" href="homka.html">Хомяки</a>
-        <a class="nav-link text-light" href="dragon.html">Дракоши</a>
-        <a class="nav-link text-light" href="#"><i class="fas fa-cogs"></i></a>
-    </div>
-</nav>
 
-<!-- Body-->
-<div class="container">
-    <h1 class="text-center text-light">Динозаврики</h1>
-    <div class="row row-cols-3">
-        <div class="col mb-4">
-            <a href="../img/dragon/01.jpg" data-toggle="lightbox" data-title="Динозаврики" data-footer="Я - ХоМяК!">
-                <div class="card border-danger text-center h-100 shadow-lg dragon bg-white rounded">
-                    <img src="../img/dragon/01.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Я - ХоМяК!</p>
-                    </div>
-                </div>
-            </a>
-        </div>
+<body>
+<div class="bg"></div>
 
-        <div class="col mb-4">
-            <a href="../img/dragon/02.jpg" data-toggle="lightbox" data-title="Динозаврики" data-footer="Кусь!">
-                <div class="card border-danger text-center h-100 shadow-lg dragon bg-white rounded">
-                    <img src="../img/dragon/02.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Кусь!</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col mb-4">
-            <a href="../img/dragon/03.jpg" data-toggle="lightbox" data-title="Динозаврики" data-footer="Большой кусь!!">
-                <div class="card border-danger text-center h-100 shadow-lg dragon bg-white rounded">
-                    <img src="../img/dragon/03.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Большой кусь!!</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col mb-4">
-            <a href="../img/dragon/04.jpg" data-toggle="lightbox" data-title="Динозаврики" data-footer="А у меня лапки...((">
-                <div class="card border-danger text-center h-100 shadow-lg dragon bg-white rounded">
-                    <img src="../img/dragon/04.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">А у меня лапки...((</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col mb-4">
-            <a href="../img/dragon/05.jpg" data-toggle="lightbox" data-title="Динозаврики" data-footer="С лапками хорошо, а вот без лапок - плохо!">
-                <div class="card border-danger text-center h-100 shadow-lg dragon bg-white rounded">
-                    <img src="../img/dragon/05.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">С лапками хорошо, а вот без лапок - плохо!</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col mb-4">
-            <a href="../img/dragon/06.jpg" data-toggle="lightbox" data-title="Динозаврики" data-footer="Намка...">
-                <div class="card border-danger text-center h-100 shadow-lg dragon bg-white rounded">
-                    <img src="../img/dragon/06.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Намка... </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+<div id="menu">
+	<a href="index.html">Котейки</a> | <a href="homka.html">Хомяки</a> | <a href="dragon.html" style="margin-right: 20px;">Дракоши</a>
 </div>
+<h1 class="title dragon">Фотогалерея - Дракоши</h1>
+	<div class="flex">
+			<!--
+			<a class="cat_01">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/cat/cat_01.jpg">
+					<h5>Первый котик</h5>
+				</div>
+			</div>
+		</a>
+			-->
+		<a class="cat_01" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/dragon/01.jpg">
+					<h5>Я - ХоМяК!</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_02" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/dragon/02.jpg">
+					<h5>Кусь!</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_03" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/dragon/03.jpg">
+					<h5>Большой кусь!!</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_04" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/dragon/04.jpg">
+					<h5>А у меня лапки...((</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_05" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/dragon/05.jpg">
+					<h5>С лапками хорошо, а вот без лапок - плохо!</h5>
+				</div>
+			</div>
+		</a>
+		<a class="cat_06" data-tilt data-tilt-max="5">
+			<div class="img_cat">
+				<div class="bg_img">
+					<img src="img/dragon/06.jpg">
+					<h5>Намка...</h5>
+				</div>
+			</div>
+		</a>
+	</div>
 
-<footer>
-    <div class="text-center bg-danger fixed-bottom text-light"><h5>(c) Евгений Ушаков</h5></div>
-</footer>
+<!--
+<a class="lightbox" id="cat_01">
+		<img src="img/cat/cat_01.jpg"">
+</a>
+-->
 
-<script src="../js/jquery-3.5.1.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" integrity="sha512-Y2IiVZeaBwXG1wSV7f13plqlmFOx8MdjuHyYFVoYzhyRr3nH/NMDjTBSswijzADdNzMyWNetbLMfOpIPl6Cv9g==" crossorigin="anonymous"></script>
-<script src="../js/script.js"></script>
+	<a class="lightbox" id="cat_01">
+		<img src="img/dragon/01.jpg">
+	</a>
+	<a class="lightbox" id="cat_02">
+		<img src="img/dragon/02.jpg">
+	</a>
+	<a class="lightbox" id="cat_03">
+		<img src="img/dragon/03.jpg">
+	</a>
+	<a class="lightbox" id="cat_04">
+		<img src="img/dragon/04.jpg">
+	</a>
+	<a class="lightbox" id="cat_05">
+		<img src="img/dragon/05.jpg">
+	</a>
+	<a class="lightbox" id="cat_06">
+		<img src="img/dragon/06.jpg">
+	</a>
 </body>
+
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/tilt.jquery.js"></script>
+<script src="js/script.js"></script>
+
 </html>

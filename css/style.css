@@ -79,6 +79,10 @@ body{
     height: 25px;
 }
 
+.form-select {
+    width: 100%;
+}
+
 .b-page__content{min-height:100px}
 .b-head-decor{display:none}
 .b-page_newyear .b-head-decor{
